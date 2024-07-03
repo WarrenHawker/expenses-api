@@ -14,7 +14,7 @@ type ExpenseUpdateData = {
 };
 
 export const updateExpense = async (req: Request, res: Response) => {
-  let { amount, type, category, date, description } = req.body;
+  let { amount, category, date, description } = req.body;
   const expenseId = req.params.id;
 
   const updateData: ExpenseUpdateData = {};
@@ -30,20 +30,6 @@ export const updateExpense = async (req: Request, res: Response) => {
       return;
     } else {
       updateData.amount = parseFloat(amount);
-    }
-  }
-
-  if (type) {
-    if (type != 'income' || type != 'expense') {
-      const error: ErrorReturn = {
-        code: 400,
-        message: 'Invalid type, must be either "income" or "expense"',
-        params: ['type'],
-      };
-      res.status(400).json(error);
-      return;
-    } else {
-      updateData.type = type;
     }
   }
 

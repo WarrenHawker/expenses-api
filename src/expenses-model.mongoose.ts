@@ -8,11 +8,6 @@ const expenseSchema = new Schema({
     type: Number,
     required: true,
   },
-  type: {
-    type: String,
-    enum: ['income', 'expense'],
-    required: true,
-  },
   category: {
     type: String,
     required: true,

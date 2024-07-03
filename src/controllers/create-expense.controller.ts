@@ -6,14 +6,11 @@ import Expense from '../expenses-model.mongoose';
 const { isEmpty, escape, isDate, isNumeric } = validator;
 
 export const createExpense = async (req: Request, res: Response) => {
-  let { amount, type, category, date, description } = req.body;
+  let { amount, category, date, description } = req.body;
 
   const missingFields = [];
   if (!amount) {
     missingFields.push('amount');
-  }
-  if (!type) {
-    missingFields.push('type');
   }
   if (!category) {
     missingFields.push('category');
@@ -36,9 +33,6 @@ export const createExpense = async (req: Request, res: Response) => {
   const emptyFields = [];
   if (isEmpty(amount, { ignore_whitespace: true })) {
     emptyFields.push('amount');
-  }
-  if (isEmpty(type, { ignore_whitespace: true })) {
-    emptyFields.push('type');
   }
   if (isEmpty(category, { ignore_whitespace: true })) {
     emptyFields.push('category');
@@ -79,19 +73,8 @@ export const createExpense = async (req: Request, res: Response) => {
     return;
   }
 
-  if (type != 'income' || type != 'expense') {
-    const error: ErrorReturn = {
-      code: 400,
-      message: 'Invalid type, must be either "income" or "expense"',
-      params: ['type'],
-    };
-    res.status(400).json(error);
-    return;
-  }
-
   const expenseData = {
     amount: parseFloat(amount),
-    type: escape(type).trim(),
     category: escape(category).trim(),
     date: new Date(date),
     description: escape(description).trim(),
