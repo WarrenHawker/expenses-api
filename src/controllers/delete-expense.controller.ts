@@ -6,7 +6,7 @@ export const deleteExpense = async (req: Request, res: Response) => {
   const expenseId = req.params.id;
 
   try {
-    const deletedExpense = Expense.findByIdAndDelete(expenseId);
+    const deletedExpense = await Expense.findByIdAndDelete(expenseId);
     if (!deletedExpense) {
       const error: ErrorReturn = {
         code: 401,
