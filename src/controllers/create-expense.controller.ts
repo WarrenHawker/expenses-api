@@ -31,22 +31,22 @@ export const createExpense = async (req: Request, res: Response) => {
   //   return;
   // }
   const emptyFields = [];
-  if (isEmpty(amount, { ignore_whitespace: true })) {
+  if (!amount || isEmpty(amount, { ignore_whitespace: true })) {
     emptyFields.push('amount');
   }
-  if (isEmpty(category, { ignore_whitespace: true })) {
+  if (!category || isEmpty(category, { ignore_whitespace: true })) {
     emptyFields.push('category');
   }
-  if (isEmpty(date, { ignore_whitespace: true })) {
+  if (!date || isEmpty(date, { ignore_whitespace: true })) {
     emptyFields.push('date');
   }
-  if (isEmpty(description, { ignore_whitespace: true })) {
+  if (!description || isEmpty(description, { ignore_whitespace: true })) {
     emptyFields.push('description');
   }
   if (emptyFields.length > 0) {
     const error: ErrorReturn = {
       code: 400,
-      message: 'Empty input fields',
+      message: 'Empty or missing input fields',
       params: emptyFields,
     };
     res.status(400).json(error);
