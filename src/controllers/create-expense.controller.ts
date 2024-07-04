@@ -8,28 +8,28 @@ const { isEmpty, escape, isDate, isNumeric } = validator;
 export const createExpense = async (req: Request, res: Response) => {
   let { amount, category, date, description } = req.body;
 
-  const missingFields = [];
-  if (!amount) {
-    missingFields.push('amount');
-  }
-  if (!category) {
-    missingFields.push('category');
-  }
-  if (!date) {
-    missingFields.push('date');
-  }
-  if (!description) {
-    missingFields.push('description');
-  }
-  if (missingFields.length > 0) {
-    const error: ErrorReturn = {
-      code: 400,
-      message: 'Missing body parameters',
-      params: missingFields,
-    };
-    res.status(400).json(error);
-    return;
-  }
+  // const missingFields = [];
+  // if (!amount) {
+  //   missingFields.push('amount');
+  // }
+  // if (!category) {
+  //   missingFields.push('category');
+  // }
+  // if (!date) {
+  //   missingFields.push('date');
+  // }
+  // if (!description) {
+  //   missingFields.push('description');
+  // }
+  // if (missingFields.length > 0) {
+  //   const error: ErrorReturn = {
+  //     code: 400,
+  //     message: 'Missing body parameters',
+  //     params: missingFields,
+  //   };
+  //   res.status(400).json(error);
+  //   return;
+  // }
   const emptyFields = [];
   if (isEmpty(amount, { ignore_whitespace: true })) {
     emptyFields.push('amount');
