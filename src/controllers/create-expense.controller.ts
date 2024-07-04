@@ -73,6 +73,16 @@ export const createExpense = async (req: Request, res: Response) => {
     return;
   }
 
+  if (parseFloat(amount) < 0) {
+    const error: ErrorReturn = {
+      code: 400,
+      message: 'Amount cannot be less than zero',
+      params: ['amount'],
+    };
+    res.status(400).json(error);
+    return;
+  }
+
   const expenseData = {
     amount: parseFloat(amount),
     category: escape(category).trim(),
